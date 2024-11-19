@@ -1,0 +1,40 @@
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gn-libs"
+dynamic = []
+version = "0.0.0"
+dependencies = [
+    "mysqlclient>=2.0.1"
+]
+requires-python = ">=3.10"
+authors = [
+    {name = "Frederick M. Muriithi", email = "fredmanglis@gmail.com"},
+]
+maintainers = [
+    {name = "Frederick M. Muriithi", email = "fredmanglis@gmail.com"},
+]
+description = "gn-libs: Tools/Utilities for GeneNetwork Projects"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE"}
+keywords = []
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+]
+
+[project.urls]
+Homepage = "https://git.genenetwork.org/gn-libs/"
+Repository = "https://git.genenetwork.org/gn-libs/"
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pytest",
+    "pylint",
+#    "types-mysqlclient" # enable this once the types make it to guix
+]
