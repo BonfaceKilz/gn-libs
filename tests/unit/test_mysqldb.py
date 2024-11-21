@@ -1,5 +1,4 @@
-"""Tests for function in ....mysqldb module"""
-"""module contains test for db_utils"""
+"""Tests for function in gn_libs.mysqldb module"""
 from unittest import mock
 
 import pytest
