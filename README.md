@@ -23,4 +23,8 @@ mypy --show-error-codes .
 
 ### Running Tests
 
-* TODO: Document this
+Use the following command to run unit tests.
+
+```sh
+pytest -k unit_test
+```
