@@ -1,6 +1,7 @@
 """This exte"""
 import logging
 import contextlib
+from logging import Logger
 from urllib.parse import urlparse
 from typing import Any, Iterator, Protocol, Callable
 
@@ -91,3 +92,11 @@ def database_connection(sql_uri: str, logger: logging.Logger = _logger) -> Itera
     finally:
         connection.commit()
         connection.close()
+
+
+def debug_query(cursor: Cursor, logger: Logger) -> None:
+    """Debug the actual query run with MySQLdb"""
+    for attr in ("_executed", "statement", "_last_executed"):
+        if hasattr(cursor, attr):
+            logger.debug("MySQLdb QUERY: %s", getattr(cursor, attr))
+            break
