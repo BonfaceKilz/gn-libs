@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from typing import Any, Iterator, Protocol, Callable
 
 import MySQLdb as mdb
+from MySQLdb.cursors import Cursor
 
 
 _logger = logging.getLogger(__file__)
