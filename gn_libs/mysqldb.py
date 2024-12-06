@@ -87,11 +87,11 @@ def database_connection(sql_uri: str, logger: logging.Logger = _logger) -> Itera
     connection = mdb.connect(**parse_db_url(sql_uri))
     try:
         yield connection
+        connection.commit()
     except mdb.Error as _mbde:
         logger.error("DB error encountered", exc_info=True)
         connection.rollback()
     finally:
-        connection.commit()
         connection.close()
 
 
