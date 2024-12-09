@@ -88,7 +88,10 @@ def test_parse_db_url_with_invalid_options(sql_uri, invalidopt):
     (("mysql://auser:passwd@somehost:3307/thedb?use_unicode=fire"),
      ("mysql://auser:passwd@somehost:3307/thedb?use_unicode=3"),
      ("mysql://auser:passwd@somehost:3307/thedb?connect_timeout=-30"),
-     ("mysql://auser:passwd@somehost:3307/thedb?connect_timeout=santa")))
+     ("mysql://auser:passwd@somehost:3307/thedb?connect_timeout=santa"),
+     ("mysql://auser:passwd@somehost:3307/thedb?ssl_mode=yellow"),
+     ("mysql://auser:passwd@somehost:3307/thedb?ssl_mode=55"),
+     ("mysql://auser:passwd@somehost:3307/thedb?ssl_mode=true")))
 def test_parse_db_url_with_invalid_options_values(sql_uri):
     """Test parsing with invalid options' values."""
     with pytest.raises(InvalidOptionValue) as iov:

@@ -29,6 +29,15 @@ def __non_negative_int__(val: str) -> int:
     _val = int(val)
     assert (val >= 0), f"Expected a non-negative value. Got {_val}"
     return _val
+
+
+def __parse_ssl_mode_options__(val: str) -> str:
+    mode_opts = (
+        "DISABLED", "PREFERRED", "REQUIRED", "VERIFY_CA", "VERIFY_IDENTITY")
+    _val = val.strip().upper()
+    if(_val not in mode_opts):
+        raise InvalidOptionValue(f"Invalid ssl_mode option: {_val}")
+    return _val
 def __parse_db_opts__(opts: str) -> dict:
     """Parse database options into their appropriate values.
 
@@ -48,6 +57,7 @@ def __parse_db_opts__(opts: str) -> dict:
         "client_flag": int,
         # "ssl": __parse_ssl_options__,
         "multi_statements": __parse_boolean__,
+        "ssl_mode": __parse_ssl_mode_options__,
         "local_infile": __parse_boolean__,
         "autocommit": __parse_boolean__,
         "binary_prefix": __parse_boolean__
