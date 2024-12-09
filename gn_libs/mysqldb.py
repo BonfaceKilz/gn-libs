@@ -26,9 +26,14 @@ def __parse_boolean__(val: str) -> bool:
 
 def __non_negative_int__(val: str) -> int:
     """Convert a value to a non-negative int."""
-    _val = int(val)
-    assert (val >= 0), f"Expected a non-negative value. Got {_val}"
-    return _val
+    error_message = f"Expected a non-negative value. Got {val}"
+    try:
+        _val = int(val)
+        if (_val < 0):
+            raise InvalidOptionValue(error_message)
+        return _val
+    except ValueError as verr:
+        raise InvalidOptionValue(error_message) from verr
 
 
 def __parse_ssl_mode_options__(val: str) -> str:
