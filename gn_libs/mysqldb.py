@@ -15,9 +15,13 @@ class InvalidOptionValue(Exception):
     """Raised whenever a parsed value is invalid for the specific option."""
 
 
-def __check_true__(val: str) -> bool:
+def __parse_boolean__(val: str) -> bool:
     """Check whether the variable 'val' has the string value `true`."""
-    return val.strip().lower() == "true"
+    true_vals = ("t", "T", "true", "TRUE", "True")
+    false_vals = ("f", "F", "false", "FALSE", "False")
+    if (val.strip() not in (true_vals + false_vals)):
+        raise InvalidOptionValue(f"Invalid value: {val}")
+    return val.strip().lower() in true_vals
 
 
 def __parse_db_opts__(opts: str) -> dict:
@@ -33,15 +37,15 @@ def __parse_db_opts__(opts: str) -> dict:
     conversion_fns: dict[str, Callable] = {
         **{opt: str for opt in allowed_opts},
         "connect_timeout": int,
-        "compress": __check_true__,
-        "use_unicode": __check_true__,
+        "compress": __parse_boolean__,
+        "use_unicode": __parse_boolean__,
         # "cursorclass": __load_cursor_class__
         "client_flag": int,
-        "multi_statements": __check_true__,
         # "ssl": __parse_ssl_options__,
-        "local_infile": __check_true__,
-        "autocommit": __check_true__,
-        "binary_prefix": __check_true__
+        "multi_statements": __parse_boolean__,
+        "local_infile": __parse_boolean__,
+        "autocommit": __parse_boolean__,
+        "binary_prefix": __parse_boolean__
     }
     queries = tuple(filter(bool, opts.split("&")))
     if len(queries) > 0:

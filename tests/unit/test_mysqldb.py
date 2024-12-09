@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from gn_libs.mysqldb import parse_db_url, database_connection
+from gn_libs.mysqldb import parse_db_url, database_connection, InvalidOptionValue
 
 @pytest.mark.unit_test
 @mock.patch("gn_libs.mysqldb.mdb")
@@ -80,3 +80,14 @@ def test_parse_db_url_with_invalid_options(sql_uri, invalidopt):
         parse_db_url(sql_uri)
 
     assert exc_info.value.args[0] == f"Invalid database connection option ({invalidopt}) provided."
+
+
+@pytest.mark.unit_test
+@pytest.mark.parametrize(
+    "sql_uri",
+    (("mysql://auser:passwd@somehost:3307/thedb?use_unicode=fire"),
+     ("mysql://auser:passwd@somehost:3307/thedb?use_unicode=3")))
+def test_parse_db_url_with_invalid_options_values(sql_uri):
+    """Test parsing with invalid options' values."""
+    with pytest.raises(InvalidOptionValue) as iov:
+        parse_db_url(sql_uri)
