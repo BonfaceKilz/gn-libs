@@ -19,7 +19,7 @@ def __parse_boolean__(val: str) -> bool:
     """Check whether the variable 'val' has the string value `true`."""
     true_vals = ("t", "T", "true", "TRUE", "True")
     false_vals = ("f", "F", "false", "FALSE", "False")
-    if (val.strip() not in (true_vals + false_vals)):
+    if val.strip() not in true_vals + false_vals:
         raise InvalidOptionValue(f"Invalid value: {val}")
     return val.strip().lower() in true_vals
 
@@ -29,7 +29,7 @@ def __non_negative_int__(val: str) -> int:
     error_message = f"Expected a non-negative value. Got {val}"
     try:
         _val = int(val)
-        if (_val < 0):
+        if _val < 0:
             raise InvalidOptionValue(error_message)
         return _val
     except ValueError as verr:
@@ -40,7 +40,7 @@ def __parse_ssl_mode_options__(val: str) -> str:
     mode_opts = (
         "DISABLED", "PREFERRED", "REQUIRED", "VERIFY_CA", "VERIFY_IDENTITY")
     _val = val.strip().upper()
-    if(_val not in mode_opts):
+    if _val not in mode_opts:
         raise InvalidOptionValue(f"Invalid ssl_mode option: {_val}")
     return _val
 
