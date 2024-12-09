@@ -1,4 +1,4 @@
-"""This exte"""
+"""This module handles connections to MariaDB using python-mysqlclient."""
 import logging
 import contextlib
 from logging import Logger
