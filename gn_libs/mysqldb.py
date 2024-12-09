@@ -24,6 +24,11 @@ def __parse_boolean__(val: str) -> bool:
     return val.strip().lower() in true_vals
 
 
+def __non_negative_int__(val: str) -> int:
+    """Convert a value to a non-negative int."""
+    _val = int(val)
+    assert (val >= 0), f"Expected a non-negative value. Got {_val}"
+    return _val
 def __parse_db_opts__(opts: str) -> dict:
     """Parse database options into their appropriate values.
 
@@ -36,7 +41,7 @@ def __parse_db_opts__(opts: str) -> dict:
         "local_infile", "autocommit", "binary_prefix")
     conversion_fns: dict[str, Callable] = {
         **{opt: str for opt in allowed_opts},
-        "connect_timeout": int,
+        "connect_timeout": __non_negative_int__,
         "compress": __parse_boolean__,
         "use_unicode": __parse_boolean__,
         # "cursorclass": __load_cursor_class__
