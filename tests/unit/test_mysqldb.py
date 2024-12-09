@@ -62,6 +62,22 @@ def test_database_connection(mock_db_parser, mock_sql):
           "user": None,
           "password": None,
           "database": "users"
+      }),
+     (("mysql://localhost/users?ssl=key;keyname,cert;/path/to/cert,ca;caname,"
+       "capath;/path/to/certificate/authority/files,cipher;ciphername"),
+      {
+          "host": "localhost",
+          "port": 3306,
+          "user": None,
+          "password": None,
+          "database": "users",
+          "ssl": {
+              "key": "keyname",
+              "cert": "/path/to/cert",
+              "ca": "caname",
+              "capath": "/path/to/certificate/authority/files",
+              "cipher": "ciphername"
+          }
       })))
 def test_parse_db_url(sql_uri, expected):
     """Test that valid URIs are passed into valid connection dicts"""
