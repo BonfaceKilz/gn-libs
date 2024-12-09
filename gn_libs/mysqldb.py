@@ -11,6 +11,9 @@ from MySQLdb.cursors import Cursor
 
 _logger = logging.getLogger(__file__)
 
+class InvalidOptionValue(Exception):
+    """Raised whenever a parsed value is invalid for the specific option."""
+
 
 def __check_true__(val: str) -> bool:
     """Check whether the variable 'val' has the string value `true`."""
