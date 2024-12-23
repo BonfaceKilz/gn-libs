@@ -1,6 +1,7 @@
 (define-module (gn-libs)
   #:use-module ((gn packages genenetwork) #:select (gn-libs) #:prefix gn:)
-
+  #:use-module ((gnu packages check) #:select (python-pylint))
+  #:use-module ((gnu packages python-check) #:select (python-mypy))
   #:use-module (guix gexp)
   #:use-module (guix utils)
   #:use-module (guix packages)
